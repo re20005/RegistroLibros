@@ -95,6 +95,48 @@ body{
   color: white;
 }
 
+.login-box {
+  background: url('../assets/img/flogin.jpg') center center/cover no-repeat;
+  height: 100vh;
+  position: relative;
+  display: flex;              
+  justify-content: center;    
+  align-items: center;  
+}
+
+.login {
+  max-width: 800px;
+  height: auto;
+  border: 2px solid #ffffff66;
+  border-radius: 25px;
+  padding: 40px;
+  background: #ffffff0d;
+  backdrop-filter: blur(8px);
+  color: white;
+}
+
+.home-box {
+  background: url('../assets/img/fhome.jpg') center center/cover no-repeat;
+  height: 100vh;
+  position: relative;
+  display: flex;              
+  justify-content: center;    
+  align-items: center;  
+}
+
+.home {
+  position: relative;
+  z-index: 5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  flex-direction: column;
+  padding: 20px;
+}
+
 
 .hero-content h1{
     font-size: 4rem;

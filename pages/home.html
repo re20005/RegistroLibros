@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sistema de Gestión de Libros</title>
+    <title>Home Gestión de Libros</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
         rel="stylesheet">
@@ -13,7 +13,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
@@ -28,14 +28,14 @@
                 Biblioteca Virtual
             </a>
 
+            
+                <span id="usuarioActivo" class="nav-link d-inline"></span>               
+          
+             
             <div>
 
-                <a href="/pages/login.html" class="nav-link d-inline login-bnt">
-                    Iniciar Sesión
-                </a>
-
-                <a href="/pages/register.html" class="btn btn-warning ms-2">
-                    Registrarse
+                <a href="#" class="nav-link d-inline cerrar-sesion-bnt">
+                    Cerrar Sesión
                 </a>
 
             </div>
@@ -44,11 +44,11 @@
 
     </nav>
 
-    <section class="hero-section">
+    <section class="home-box">
 
         <div class="overlay"></div>
 
-        <div class="hero-content">
+        <div class="home">
 
             <h1>
                 Sistema de Gestión de Libros
@@ -62,11 +62,11 @@
             <div class="hero-buttons">
 
                 <a href="#" class="btn btn-primary">
-                    Explorar Libros
+                    Mis Libros
                 </a>
 
                 <a href="#" class="btn btn-outline-light">
-                    Explorar Categorías
+                    Mis Bibliotecas
                 </a>
 
             </div>
@@ -78,7 +78,8 @@
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
     </script>
-
+    <script src="../js/home.js"></script>
+    <script src="../js/auth.js"></script>
 </body>
 
 </html>
