@@ -1,3 +1,4 @@
+// js/home.js
 class Biblioteca {
   static cargarBibliotecas() {
     const bibliotecas = [
@@ -24,7 +25,7 @@ class Biblioteca {
   }
 
   static distancia(lat1, lon1, lat2, lon2) {
-    const R = 6371; 
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a =
@@ -51,3 +52,39 @@ class Biblioteca {
     return masCercana;
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  
+  const sesion = auth.validarSesion(); 
+
+  if (sesion) {
+    if (!localStorage.getItem("bibliotecas")) {
+      Biblioteca.cargarBibliotecas();
+    }
+
+    const usuarioActivo = document.getElementById("usuarioActivo");
+    if (usuarioActivo) {
+      usuarioActivo.textContent = `${sesion.nombre} _ ${sesion.correo}`;
+    }
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+
+      const cercana = Biblioteca.masCercana(lat, lon);
+      if (cercana && usuarioActivo) {
+        usuarioActivo.textContent += ` | Biblioteca más cercana: ${cercana.nombre} (${cercana.departamento})`;
+      }
+    });
+  }
+
+  // Cerrar sesión
+  const logoutLink = document.querySelector(".cerrar-sesion-bnt");
+  if (logoutLink) {
+    logoutLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      auth.cerrarSesion(); 
+      window.location.href = "login.html";
+    });
+  }
+});

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Busqueda de Libros</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html">
+                <i class="fa-solid fa-book"></i>
+                Biblioteca Virtual
+            </a>
+            <span id="usuarioActivo" class="nav-link d-inline"></span>               
+            <div>
+                <a href="#" class="nav-link d-inline cerrar-sesion-bnt">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="home-box">
+        <div class="overlay"></div>
+        <div class="home">
+            <h1>Busqueda de Libros</h1>
+            <p>
+                Busca tus libros favoritos, descubre nuevas lecturas y encuentra la biblioteca más cercana a ti. Explora nuestra amplia colección de libros y disfruta de la lectura en tu biblioteca virtual.
+            </p>
+
+            <!-- 🔧 Buscador -->
+            <div class="mb-3">
+                <input type="text" id="buscar" class="form-control" placeholder="Buscar libro por título, autor, ISBN o biblioteca">
+                <button id="btnBuscar" class="btn btn-primary mt-2">
+                    <i class="fa fa-search"></i> Buscar
+                </button>
+            </div>
+
+            <!-- 🔧 Lista de libros -->
+            <h2 class="mt-4">Catálogo</h2>
+            <ul id="listaLibros" class="list-group"></ul>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/Libros.js"></script>
+    <script src="../js/LibrosUI.js"></script>
+    <script>
+        // Inicializar interfaz desde la clase
+        LibrosUI.configurarEventos();
+    </script>
+</body>
+</html>
