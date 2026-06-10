@@ -227,3 +227,34 @@ body{
     border: 2px solid #fafdce;
     box-shadow: 0 0 10px rgba(15, 10, 153, 0.5);
 }
+
+.prestamos-container{
+    justify-content: flex-start;
+    padding-top: 120px;
+}
+
+#listaPrestamos{
+    width: 80%;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* ========================= */
+/* BUSQUEDA DE LIBROS */
+/* ========================= */
+
+.libros-container{
+    justify-content: flex-start;
+    padding-top: 120px;
+}
+
+#listaLibros{
+    width: 80%;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+#listaLibros .list-group-item{
+    margin-bottom: 10px;
+    text-align: left;
+}
