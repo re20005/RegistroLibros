@@ -22,56 +22,71 @@ class Users {
 
   // Crear registro normal con validaciones y geolocalización
   static crearRegistro(data) {
-    let registros = Users.obtenerRegistros();
+    return new Promise((resolve) => {
+      let registros = Users.obtenerRegistros();
 
-    try {
-      // Validaciones básicas
-      if (!data.nombre || !data.correo || !data.password || !data.cpassword) {
-        throw new Error("Todos los campos son obligatorios");
-      }
-      if (data.password !== data.cpassword) {
-        throw new Error("Las contraseñas no coinciden");
-      }
-
-      // Rol por defecto
-      data.rol = "user";
-
-      // Obtener ubicacion
-      navigator.geolocation.getCurrentPosition(
-        async (pos) => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-
-          try {
-            const resp = await fetch(
-              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=es`
-            );
-            const ubicacion = await resp.json();
-
-            // Agregar ubicación
-            data.ubicacion = {
-              ciudad: ubicacion.city,
-              pais: ubicacion.countryName,
-              lat,
-              lon,
-            };
-
-            // Guardar usuario
-            registros.push(data);
-            Users.guardarRegistros(registros);
-
-            alert(`Registro exitoso en ${ubicacion.city}, ${ubicacion.countryName}`);
-          } catch (error) {
-            alert("Error al obtener datos de la API: " + error.message);
-          }
-        },
-        (error) => {
-          alert("Error de geolocalización: " + error.message);
+      try {
+        if (!data.nombre || !data.correo || !data.password || !data.cpassword) {
+          throw new Error("Todos los campos son obligatorios");
         }
-      );
-    } catch (error) {
-      alert("Error al crear registro: " + error.message);
-    }
+        if (data.password !== data.cpassword) {
+          throw new Error("Las contraseñas no coinciden");
+        }
+
+        const correoNormalizado = data.correo.trim().toLowerCase();
+        const yaExiste = registros.some((reg) => reg.correo.trim().toLowerCase() === correoNormalizado);
+        if (yaExiste) {
+          throw new Error("Este correo ya está registrado");
+        }
+
+        data.correo = correoNormalizado;
+        data.rol = "user";
+        data.ubicacion = null;
+
+        const guardarRegistro = (mensaje) => {
+          registros.push(data);
+          Users.guardarRegistros(registros);
+          alert(mensaje);
+          resolve(true);
+        };
+
+        if (!navigator.geolocation) {
+          guardarRegistro("Registro exitoso");
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            try {
+              const resp = await fetch(
+                `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=es`
+              );
+              const ubicacion = await resp.json();
+
+              data.ubicacion = {
+                ciudad: ubicacion.city || "",
+                pais: ubicacion.countryName || "",
+                lat,
+                lon,
+              };
+
+              guardarRegistro(`Registro exitoso en ${data.ubicacion.ciudad || "ubicación desconocida"}, ${data.ubicacion.pais || ""}`.trim());
+            } catch (error) {
+              guardarRegistro("Registro exitoso (sin ubicación exacta)");
+            }
+          },
+          () => {
+            guardarRegistro("Registro exitoso (sin geolocalización)");
+          }
+        );
+      } catch (error) {
+        alert("Error al crear registro: " + error.message);
+        resolve(false);
+      }
+    });
   }
 
   // Obtener registros

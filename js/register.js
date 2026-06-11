@@ -1,4 +1,4 @@
-document.getElementById("formRegistro").addEventListener("submit", function (e) {
+document.getElementById("formRegistro").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const nombre = document.getElementById("nombre").value.trim();
@@ -14,9 +14,11 @@ document.getElementById("formRegistro").addEventListener("submit", function (e) 
       throw new Error("Las contraseñas no coinciden");
     }
 
-    Users.crearRegistro({ nombre, correo, password, cpassword });
-
-    e.target.reset();
+    const creado = await Users.crearRegistro({ nombre, correo, password, cpassword });
+    if (creado) {
+      e.target.reset();
+      window.location.href = "login.html";
+    }
   } catch (error) {
     alert("Error al validar: " + error.message);
   }
