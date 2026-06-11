@@ -4,6 +4,22 @@ class Libros {
     return JSON.parse(localStorage.getItem("libros")) || [];
   }
 
+  static normalizarLibro(data, libroExistente = null) {
+    const libro = {
+      titulo: (data.titulo || "").trim(),
+      autor: (data.autor || "").trim(),
+      isbn: (data.isbn || "").trim(),
+      biblioteca: (data.biblioteca || "").trim(),
+      estado: (data.estado || libroExistente?.estado || "disponible").trim().toLowerCase(),
+    };
+
+    if (!["disponible", "prestado"].includes(libro.estado)) {
+      libro.estado = "disponible";
+    }
+
+    return libro;
+  }
+
   // Guardar libros
   static guardarLibros(libros) {
     localStorage.setItem("libros", JSON.stringify(libros));
@@ -11,21 +27,25 @@ class Libros {
 
   // Agregar libro (con opción de mostrar alerta)
   static agregarLibro(data, mostrarAlerta = true) {
-    let libros = Libros.obtenerLibros();
+    const libros = Libros.obtenerLibros();
+    const libro = Libros.normalizarLibro(data);
 
-    if (!data.titulo || !data.autor || !data.isbn || !data.biblioteca) {
+    if (!libro.titulo || !libro.autor || !libro.isbn || !libro.biblioteca) {
       throw new Error("Título, autor, ISBN y biblioteca son obligatorios");
     }
 
-    // Estado por defecto
-    data.estado = "disponible";
+    if (libros.some(item => item.isbn === libro.isbn)) {
+      throw new Error("Ya existe un libro con ese ISBN");
+    }
 
-    libros.push(data);
+    libros.push(libro);
     Libros.guardarLibros(libros);
 
     if (mostrarAlerta) {
       alert("Libro agregado correctamente");
     }
+
+    return libro;
   }
 
   // Ver todos los libros
@@ -36,6 +56,12 @@ class Libros {
   // Eliminar libro por ISBN
   static eliminarLibro(isbn) {
     let libros = Libros.obtenerLibros();
+    const existe = libros.some(libro => libro.isbn === isbn);
+
+    if (!existe) {
+      throw new Error("Libro no encontrado");
+    }
+
     libros = libros.filter(libro => libro.isbn !== isbn);
     Libros.guardarLibros(libros);
     alert("Libro eliminado");
@@ -47,11 +73,23 @@ class Libros {
     const index = libros.findIndex(libro => libro.isbn === isbn);
 
     if (index !== -1) {
-      libros[index] = { ...libros[index], ...nuevosDatos };
+      const libroActualizado = Libros.normalizarLibro({ ...libros[index], ...nuevosDatos }, libros[index]);
+
+      if (!libroActualizado.titulo || !libroActualizado.autor || !libroActualizado.isbn || !libroActualizado.biblioteca) {
+        throw new Error("Título, autor, ISBN y biblioteca son obligatorios");
+      }
+
+      const isbnDuplicado = libros.some((libro, posicion) => posicion !== index && libro.isbn === libroActualizado.isbn);
+      if (isbnDuplicado) {
+        throw new Error("Ya existe otro libro con ese ISBN");
+      }
+
+      libros[index] = libroActualizado;
       Libros.guardarLibros(libros);
       alert("Libro actualizado");
+      return libroActualizado;
     } else {
-      alert("Libro no encontrado");
+      throw new Error("Libro no encontrado");
     }
   }
 
