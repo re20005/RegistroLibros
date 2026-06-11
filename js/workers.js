@@ -1,7 +1,10 @@
 // Procesa datos en segundo plano
 onmessage = function (e) {
-  const registros = e.data;
-  const total = registros.length;
-  const activos = registros.filter(r => r.estado === "activo").length;
-  postMessage(`Total: ${total}, Activos: ${activos}`);
+  const libros = Array.isArray(e.data) ? e.data : [];
+  const total = libros.length;
+  const disponibles = libros.filter(libro => (libro.estado || "disponible") === "disponible").length;
+  const prestados = libros.filter(libro => libro.estado === "prestado").length;
+  const bibliotecas = new Set(libros.map(libro => libro.biblioteca).filter(Boolean)).size;
+
+  postMessage({ total, disponibles, prestados, bibliotecas });
 };
