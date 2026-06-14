@@ -82,7 +82,18 @@ class LibrosUI {
     document.getElementById("titulo").value = libro.titulo;
     document.getElementById("autor").value = libro.autor;
     document.getElementById("isbn").value = libro.isbn;
-    document.getElementById("biblioteca").value = libro.biblioteca;
+
+    const selectB = document.getElementById("biblioteca");
+    const existe = Array.from(selectB.options).some(opt => opt.value === libro.biblioteca);
+
+    if (!existe && libro.biblioteca) {
+      const opt = document.createElement("option");
+      opt.value = libro.biblioteca;
+      opt.textContent = libro.biblioteca + " (Sede no oficial)";
+      selectB.appendChild(opt);
+    }
+
+    selectB.value = libro.biblioteca;
     document.getElementById("estado").value = libro.estado || "disponible";
     document.getElementById("isbnOriginal").value = libro.isbn;
     LibrosUI.isbnEnEdicion = libro.isbn;
@@ -120,9 +131,25 @@ class LibrosUI {
 
   // Mostrar todos los libros al cargar
   static inicializarVista() {
+    LibrosUI.llenarComboBibliotecas();
     const libros = Libros.verLibros();
     LibrosUI.mostrarLibros(libros);
     LibrosUI.actualizarMetricas();
+  }
+
+  static llenarComboBibliotecas() {
+    const selectB = document.getElementById("biblioteca");
+    if (selectB && selectB.options.length <= 1) {
+      if (typeof Biblioteca !== "undefined") {
+        const bibs = Biblioteca.obtenerBibliotecas();
+        bibs.forEach(b => {
+          const opt = document.createElement("option");
+          opt.value = b.nombre;
+          opt.textContent = b.nombre;
+          selectB.appendChild(opt);
+        });
+      }
+    }
   }
 
   // Buscar libros y mostrarlos
