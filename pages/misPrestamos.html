@@ -73,6 +73,13 @@
 <script src="../js/prestamos.js"></script>
 <script src="../js/prestamosUI.js"></script>
 <script src="../js/libros.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof auth !== "undefined") {
+            auth.validarSesion();
+        }
+    });
+</script>
 
 </body>
 

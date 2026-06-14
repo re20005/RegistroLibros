@@ -45,6 +45,7 @@ document.getElementById("formLogin").addEventListener("submit", async function (
       JSON.stringify({
         correo: usuario.correo,
         nombre: usuario.nombre,
+        rol: usuario.rol || "user",
         tiempo: Date.now()
       })
     );
