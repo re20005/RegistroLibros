@@ -9,6 +9,7 @@ class Libros {
       titulo: (data.titulo || "").trim(),
       autor: (data.autor || "").trim(),
       isbn: (data.isbn || "").trim(),
+      categoria: (data.categoria || "").trim() || "Literatura",
       biblioteca: (data.biblioteca || "").trim(),
       estado: (data.estado || libroExistente?.estado || "disponible").trim().toLowerCase(),
     };
@@ -112,10 +113,10 @@ class Libros {
 
     if (libros.length === 0) {
       const iniciales = [
-        { titulo: "Cien años de soledad", autor: "Gabriel García Márquez", isbn: "9780307474728", biblioteca: "Biblioteca Nacional San Salvador" },
-        { titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", isbn: "9788491050295", biblioteca: "Biblioteca Santa Ana" },
-        { titulo: "El Principito", autor: "Antoine de Saint-Exupéry", isbn: "9780156013987", biblioteca: "Biblioteca San Miguel" },
-        { titulo: "La Biblia", autor: "Varios autores", isbn: "9788428535958", biblioteca: "Biblioteca Ahuachapán" }
+        { titulo: "Cien años de soledad", autor: "Gabriel García Márquez", isbn: "9780307474728", categoria: "Novela", biblioteca: "Biblioteca Nacional San Salvador" },
+        { titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", isbn: "9788491050295", categoria: "Clásicos", biblioteca: "Biblioteca Santa Ana" },
+        { titulo: "El Principito", autor: "Antoine de Saint-Exupéry", isbn: "9780156013987", categoria: "Infantil", biblioteca: "Biblioteca San Miguel" },
+        { titulo: "La Biblia", autor: "Varios autores", isbn: "9788428535958", categoria: "Religión", biblioteca: "Biblioteca Ahuachapán" }
       ];
 
       // Guardar libros sin mostrar alertas

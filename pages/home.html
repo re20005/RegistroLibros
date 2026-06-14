@@ -4,133 +4,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Home Gestión de Libros</title>
-
+    <title>Dashboard - Sistema de Libros</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
-
-
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg custom-navbar">
-
         <div class="container-fluid">
-
             <a class="navbar-brand" href="#">
-                <i class="fa-solid fa-book"></i>
-                Biblioteca Virtual
+                <i class="fa-solid fa-book"></i> Biblioteca Virtual
             </a>
-
-
             <span id="usuarioActivo" class="nav-link d-inline"></span>
-
-
             <div>
-
-                <a href="#" class="nav-link d-inline cerrar-sesion-bnt">
-                    Cerrar Sesión
-                </a>
-
+                <a href="#" class="nav-link d-inline cerrar-sesion-bnt">Cerrar Sesión</a>
             </div>
-
         </div>
-
     </nav>
 
     <section class="home-box py-5">
         <div class="overlay"></div>
-        <div class="container position-relative z-index-5 text-white">
-            <header class="text-center mb-5">
-                <h1 class="fw-bold">Gestión de Biblioteca</h1>
-                <p>Monitorea y organiza tu catálogo en tiempo real.</p>
-            </header>
+        <div class="container position-relative z-index-5">
+            
+            <!-- CONTENEDOR PARA ADMINISTRADORES -->
+            <div id="vistaAdmin" style="display: none;">
+                <header class="text-center mb-5 text-white">
+                    <h1 class="fw-bold">Gestión de Biblioteca (Admin)</h1>
+                    <p>Monitorea y organiza tu catálogo en tiempo real.</p>
+                </header>
 
-            <!-- 📊 Dashboard Simple -->
-            <div class="row g-3 mb-5 justify-content-center">
-                <div class="col-6 col-md-3">
-                    <div class="card bg-dark text-white border-light text-center p-2 shadow-sm">
-                        <small class="opacity-75">Libros</small>
-                        <h3 id="totalLibrosHome" class="mb-0">0</h3>
+                <!-- Dashboard (Web Worker) -->
+                <div class="row g-3 mb-5 justify-content-center text-white">
+                    <div class="col-6 col-md-3">
+                        <div class="card bg-dark text-white border-light text-center p-2 shadow-sm">
+                            <small class="opacity-75">Total Libros</small>
+                            <h3 id="totalLibrosHome" class="mb-0">0</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card bg-success text-white border-light text-center p-2 shadow-sm">
-                        <small class="opacity-75">Disponibles</small>
-                        <h3 id="totalDisponiblesHome" class="mb-0">0</h3>
+                    <div class="col-6 col-md-3">
+                        <div class="card bg-success text-white border-light text-center p-2 shadow-sm">
+                            <small class="opacity-75">Disponibles</small>
+                            <h3 id="totalDisponiblesHome" class="mb-0">0</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card bg-warning text-dark border-light text-center p-2 shadow-sm">
-                        <small class="opacity-75">Prestados</small>
-                        <h3 id="totalPrestadosHome" class="mb-0">0</h3>
+                    <div class="col-6 col-md-3">
+                        <div class="card bg-warning text-dark border-light text-center p-2 shadow-sm">
+                            <small class="opacity-75">Prestados</small>
+                            <h3 id="totalPrestadosHome" class="mb-0">0</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card bg-info text-dark border-light text-center p-2 shadow-sm">
-                        <small class="opacity-75">Sedes</small>
-                        <h3 id="totalBibliotecasHome" class="mb-0">0</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <!-- Gestión de Libros -->
-                <div class="col-md-5">
-                    <div class="card p-4 bg-white text-dark shadow rounded-4">
-                        <h4 id="formTitle" class="mb-4 border-bottom pb-2">Registrar Libro</h4>
-                        <form id="formLibro">
-                            <input type="hidden" id="isbnOriginal">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Título</label>
-                                <input type="text" id="titulo" class="form-control" placeholder="Nombre del libro" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Autor</label>
-                                <input type="text" id="autor" class="form-control" placeholder="Nombre del autor" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">ISBN</label>
-                                <input type="text" id="isbn" class="form-control" placeholder="Ej: 978123..." required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Biblioteca</label>
-                                <select id="biblioteca" class="form-select" required>
-                                    <option value="">Selecciona una sede...</option>
-                                    <!-- Se llena dinámicamente -->
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label small fw-bold">Estado</label>
-                                <select id="estado" class="form-select">
-                                    <option value="disponible">Disponible</option>
-                                    <option value="prestado">Prestado</option>
-                                </select>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button type="submit" id="btnGuardarLibro" class="btn btn-primary fw-bold">Guardar</button>
-                                <button type="button" id="btnLimpiarLibro" class="btn btn-outline-secondary btn-sm">Limpiar</button>
-                            </div>
-                        </form>
+                    <div class="col-6 col-md-3">
+                        <div class="card bg-info text-dark border-light text-center p-2 shadow-sm">
+                            <small class="opacity-75">Sedes</small>
+                            <h3 id="totalBibliotecasHome" class="mb-0">0</h3>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Catálogo -->
-                <div class="col-md-7">
-                    <div class="card p-4 bg-white text-dark shadow rounded-4" style="min-height: 570px;">
-                        <h4 class="mb-4 border-bottom pb-2">Mi Colección</h4>
-                        <div style="max-height: 480px; overflow-y: auto;">
-                            <ul id="listaLibros" class="list-group list-group-flush">
-                                <!-- Los libros se cargarán aquí -->
-                            </ul>
+                <div class="row g-4">
+                    <!-- Formulario de Registro con Categorías -->
+                    <div class="col-md-5">
+                        <div class="card p-4 bg-white text-dark shadow rounded-4">
+                            <h4 id="formTitle" class="mb-4 border-bottom pb-2">Registrar Libro</h4>
+                            <form id="formLibro">
+                                <input type="hidden" id="isbnOriginal">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Título</label>
+                                    <input type="text" id="titulo" class="form-control" placeholder="Título del libro" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Autor</label>
+                                    <input type="text" id="autor" class="form-control" placeholder="Autor" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Categoría</label>
+                                    <select id="categoria" class="form-select" required>
+                                        <option value="">Selecciona categoría...</option>
+                                        <option value="Literatura">Literatura</option>
+                                        <option value="Ciencia Ficción">Ciencia Ficción</option>
+                                        <option value="Historia">Historia</option>
+                                        <option value="Infantil">Infantil</option>
+                                        <option value="Clásicos">Clásicos</option>
+                                        <option value="Religión">Religión</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">ISBN</label>
+                                    <input type="text" id="isbn" class="form-control" placeholder="Código ISBN" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Biblioteca</label>
+                                    <select id="biblioteca" class="form-select" required>
+                                        <option value="">Selecciona una sede...</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-bold">Estado</label>
+                                    <select id="estado" class="form-select">
+                                        <option value="disponible">Disponible</option>
+                                        <option value="prestado">Prestado</option>
+                                    </select>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" id="btnGuardarLibro" class="btn btn-primary fw-bold">Guardar</button>
+                                    <button type="button" id="btnLimpiarLibro" class="btn btn-outline-secondary btn-sm">Limpiar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Lista para Admin -->
+                    <div class="col-md-7">
+                        <div class="card p-4 bg-white text-dark shadow rounded-4">
+                            <h4 class="mb-4 border-bottom pb-2">Administrar Catálogo</h4>
+                            <div style="max-height: 500px; overflow-y: auto;">
+                                <ul id="listaLibrosAdmin" class="list-group list-group-flush"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- CONTENEDOR PARA USUARIOS (RAMA GERARDO) -->
+            <div id="vistaUsuario" style="display: none;" class="text-center text-white">
+                <header class="mb-5">
+                    <h1>Bienvenido a la Biblioteca</h1>
+                    <p>Explora y presta tus libros favoritos.</p>
+                </header>
+
+                <div class="hero-buttons mb-5">
+                    <a href="misPrestamos.html" class="btn btn-primary btn-lg shadow">
+                         <i class="fa-solid fa-list-check"></i> Mis Préstamos
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-lg">
+                        <i class="fa-solid fa-clock"></i> Mi Historial
+                    </a>
+                </div>
+
+                <div class="card p-4 bg-white text-dark shadow rounded-4 text-start">
+                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                        <h4>Catálogo Disponible</h4>
+                        <div class="input-group w-50">
+                            <input type="text" id="buscar" class="form-control" placeholder="Ej: Don Quijote...">
+                            <button id="btnBuscar" class="btn btn-dark">Buscar</button>
+                        </div>
+                    </div>
+                    <div style="max-height: 500px; overflow-y: auto;">
+                        <ul id="listaLibrosUsuario" class="list-group list-group-flush"></ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -141,13 +167,23 @@
     <script src="../js/home.js"></script>
     <script src="../js/librosUI.js"></script>
     <script>
-        // Inicializar eventos de UI
         document.addEventListener("DOMContentLoaded", () => {
+            // Validar sesión
+            if (typeof auth !== "undefined") {
+                const sesion = auth.validarSesion();
+                if (sesion) {
+                    if (sesion.rol === "admin") {
+                        document.getElementById("vistaAdmin").style.display = "block";
+                    } else {
+                        document.getElementById("vistaUsuario").style.display = "block";
+                    }
+                }
+            }
+
             if (typeof LibrosUI !== "undefined") {
                 LibrosUI.configurarEventos();
             }
         });
     </script>
 </body>
-
 </html>

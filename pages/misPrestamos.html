@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mis Préstamos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="../css/styles.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg custom-navbar">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand"
+           href="home.html">
+
+            <i class="fa-solid fa-book"></i>
+            Biblioteca Virtual
+
+        </a>
+
+        <span id="usuarioActivo"
+              class="nav-link d-inline">
+        </span>
+
+        <div>
+
+            <a href="#"
+               class="nav-link d-inline cerrar-sesion-bnt">
+
+                Cerrar Sesión
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<section class="home-box">
+
+    <div class="overlay"></div>
+
+    <div class="home prestamos-container"></div>
+
+        <h1>Mis Préstamos</h1>
+
+        <ul id="listaPrestamos"
+            class="list-group w-75">
+        </ul>
+
+    </div>
+
+</section>
+
+<script src="../js/auth.js"></script>
+<script src="../js/prestamos.js"></script>
+<script src="../js/prestamosUI.js"></script>
+<script src="../js/libros.js"></script>
+
+</body>
+
+</html>

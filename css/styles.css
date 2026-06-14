@@ -67,6 +67,30 @@ body {
 .login-box { background: url('../assets/img/flogin.jpg') center center/cover no-repeat; }
 .home-box { background: url('../assets/img/fhome.jpg') center center/cover no-repeat; }
 
+/* HERO CONTENT (INDEX) */
+.hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    color: white !important;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
 /* CUADROS DE DIALOGO (LOGIN/REGISTER) */
 .register, .login {
     position: relative;
@@ -74,21 +98,14 @@ body {
     max-width: 450px;
     width: 90%;
     padding: 40px;
-    background: rgba(255, 255, 255, 0.95); /* Fondo sólido para legibilidad */
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    color: #333; /* Texto oscuro para contraste */
+    color: #333;
 }
 
-.register h1, .login h1 {
-    margin-bottom: 10px;
-    color: #000;
-}
-
-.register p, .login p {
-    margin-bottom: 25px;
-    color: #666;
-}
+.register h1, .login h1 { margin-bottom: 10px; color: #000; }
+.register p, .login p { margin-bottom: 25px; color: #666; }
 
 /* INPUTS ESTILO SIMPLE */
 .input-box {
@@ -134,3 +151,21 @@ body {
 
 /* UTILS */
 .z-index-5 { z-index: 5; }
+
+/* ESTILOS ESPECIFICOS RAMA GERARDO */
+#listaLibrosUsuario, #listaLibrosAdmin {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.list-group-item {
+    transition: background 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+.badge {
+    font-weight: 500;
+}
