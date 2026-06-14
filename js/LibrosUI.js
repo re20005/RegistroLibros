@@ -31,10 +31,10 @@ class LibrosUI {
 
   static renderizarMetricas(metricas) {
     const mapa = {
-      totalLibros: metricas.total,
-      totalDisponibles: metricas.disponibles,
-      totalPrestados: metricas.prestados,
-      totalBibliotecas: metricas.bibliotecas,
+      totalLibrosHome: metricas.total,
+      totalDisponiblesHome: metricas.disponibles,
+      totalPrestadosHome: metricas.prestados,
+      totalBibliotecasHome: metricas.bibliotecas,
     };
 
     Object.entries(mapa).forEach(([id, value]) => {
