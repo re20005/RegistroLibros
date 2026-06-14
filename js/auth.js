@@ -1,7 +1,6 @@
 class auth {
-
   static validarSesion() {
-    const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
+    const sesion = JSON.parse(sessionStorage.getItem("sesionActiva"));
     if (!sesion) {
       alert("Debes iniciar sesión primero");
       window.location.href = "login.html";
@@ -10,6 +9,6 @@ class auth {
   }
 
   static cerrarSesion() {
-    localStorage.removeItem("sesionActiva");
+    sessionStorage.removeItem("sesionActiva");
   }
 }

@@ -40,7 +40,7 @@ document.getElementById("formLogin").addEventListener("submit", async function (
 
   // Función para iniciar sesión
   const iniciarSesion = () => {
-    localStorage.setItem(
+    sessionStorage.setItem(
       "sesionActiva",
       JSON.stringify({
         correo: usuario.correo,
