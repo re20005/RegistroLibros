@@ -83,6 +83,7 @@ class LibrosUI {
 
     localStorage.setItem("prestamos", JSON.stringify(prestamos));
 
+
     Prestamos.registrarEnHistorial({
       usuario: sesion.correo,
       titulo: libro.titulo,
@@ -91,6 +92,7 @@ class LibrosUI {
       fecha: new Date().toLocaleDateString()
     });
     
+
     // Actualizar estado del libro
     try {
       Libros.actualizarLibro(libro.isbn, { estado: "prestado" });

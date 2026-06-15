@@ -67,7 +67,6 @@ body {
 .login-box { background: url('../assets/img/flogin.jpg') center center/cover no-repeat; }
 .home-box { background: url('../assets/img/fhome.jpg') center center/cover no-repeat; }
 
-
 .prestamos-container {
     position: relative;
     z-index: 5;
@@ -91,7 +90,6 @@ body {
     border-radius: 10px;
     margin-bottom: 10px;
 }
-
 
 /* HERO CONTENT (INDEX) */
 .hero-content {
@@ -118,7 +116,8 @@ body {
 }
 
 /* CUADROS DE DIALOGO (LOGIN/REGISTER) */
-.register, .login, .hitorial {
+
+.register, .login {
     position: relative;
     z-index: 10;
     max-width: 450px;
