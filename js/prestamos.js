@@ -53,7 +53,7 @@ static obtenerHistorialUsuario(correo) {
             usuario: prestamo.usuario,
             titulo: prestamo.titulo,
             isbn: prestamo.isbn,
-            evento: libro.estado,
+            evento: "devuelto",
             fecha: new Date().toLocaleDateString()
         });
 

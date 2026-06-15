@@ -53,21 +53,30 @@
 
 </nav>
 
-<section class="home-box">
+    <section class="home-box py-5">
+        <div class="overlay"></div>
+        <div class="container position-relative z-index-5">
+            <header class="text-center mb-5 text-white">
+                <h1 class="fw-bold">Mis Préstamos</h1>
+                <p>Aquí puedes ver los libros que tienes actualmente y devolverlos.</p>
+            </header>
 
-    <div class="overlay"></div>
-
-    <div class="home prestamos-container"></div>
-
-        <h1>Mis Préstamos</h1>
-
-        <ul id="listaPrestamos"
-            class="list-group w-75">
-        </ul>
-
-    </div>
-
-</section>
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <div class="card p-4 bg-white text-dark shadow rounded-4">
+                        <ul id="listaPrestamos" class="list-group list-group-flush">
+                            <!-- Los préstamos se cargarán aquí -->
+                        </ul>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="home.html" class="btn btn-outline-light">
+                            <i class="fa-solid fa-arrow-left"></i> Volver al Catálogo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <script src="../js/auth.js"></script>
 <script src="../js/prestamos.js"></script>

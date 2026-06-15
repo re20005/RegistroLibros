@@ -37,47 +37,25 @@ document.addEventListener(
             return;
         }
 
-        prestamos.forEach(
-            prestamo => {
+        prestamos.forEach(prestamo => {
+            const item = document.createElement("li");
+            item.className = "list-group-item d-flex justify-content-between align-items-center p-3 mb-2 border rounded";
 
-                const item =
-                    document.createElement(
-                        "li"
-                    );
-
-                item.classList.add(
-                    "list-group-item"
-                );
-
-                item.innerHTML = `
-                    <strong>
-                        ${prestamo.titulo}
-                    </strong>
-
-                    <br>
-
-                    ISBN:
-                    ${prestamo.isbn}
-
-                    <br>
-
-                    Fecha:
-                    ${prestamo.fechaPrestamo}
-
-                    <br>
-
-                    Estado:
-                    ${prestamo.estado}
-
-                    <br><br>
-
-                    <button
-                        class="btn btn-success btn-sm devolver">
-
-                        Devolver
-
+            item.innerHTML = `
+                <div class="me-auto">
+                    <div class="fw-bold">${prestamo.titulo}</div>
+                    <div class="small text-muted">ISBN: ${prestamo.isbn}</div>
+                    <div class="small mt-1 text-primary">
+                        <i class="fa-solid fa-calendar-day"></i> Prestado el: ${prestamo.fechaPrestamo}
+                    </div>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-success mb-2 d-block">Activo</span>
+                    <button class="btn btn-outline-danger btn-sm devolver">
+                        <i class="fa-solid fa-rotate-left"></i> Devolver
                     </button>
-                `;
+                </div>
+            `;
 
                 const boton =
                     item.querySelector(
