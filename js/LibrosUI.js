@@ -95,7 +95,7 @@ class LibrosUI {
 
     // Actualizar estado del libro
     try {
-      Libros.actualizarLibro(libro.isbn, { estado: "prestado" });
+      Libros.actualizarLibro(libro.isbn, { estado: "prestado" }, false);
       LibrosUI.inicializarVista();
       alert(`Has prestado "${libro.titulo}" correctamente.`);
     } catch (error) {

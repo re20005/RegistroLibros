@@ -58,7 +58,7 @@ static obtenerHistorialUsuario(correo) {
         });
 
         libro.estado = "disponible";
-        Libros.guardarLibros(libros);
+        Libros.actualizarLibro(libro.isbn, { estado: "disponible" }, false);
     }
 
     prestamos = prestamos.filter(p => p.id !== id);

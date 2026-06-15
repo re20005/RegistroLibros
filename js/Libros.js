@@ -69,7 +69,7 @@ class Libros {
   }
 
   // Actualizar libro por ISBN
-  static actualizarLibro(isbn, nuevosDatos) {
+  static actualizarLibro(isbn, nuevosDatos, mostrarAlerta = true) {
     let libros = Libros.obtenerLibros();
     const index = libros.findIndex(libro => libro.isbn === isbn);
 
@@ -87,7 +87,10 @@ class Libros {
 
       libros[index] = libroActualizado;
       Libros.guardarLibros(libros);
-      alert("Libro actualizado");
+      
+      if (mostrarAlerta) {
+        alert("Libro actualizado");
+      }
       return libroActualizado;
     } else {
       throw new Error("Libro no encontrado");
